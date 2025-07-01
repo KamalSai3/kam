@@ -1,0 +1,11 @@
+# Python
+*.pyc
+__pycache__/
+anvi/
+db.sqlite3
+.env
+
+# Node
+node_modules/
+build/
+.env
