@@ -1,9 +1,10 @@
 # Python
 *.pyc
 __pycache__/
-anvi/
+venv/
 db.sqlite3
 .env
+.settings.py
 
 # Node
 node_modules/
