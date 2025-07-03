@@ -1,12 +1,23 @@
-# Python
+# Python/Django
 *.pyc
 __pycache__/
-venv/
+*.pyo
+*.pyd
+*.log
 db.sqlite3
 .env
-.settings.py
+venv/
+env/
+anvi/
 
-# Node
+# Node/React
 node_modules/
 build/
-.env
+dist/
+
+# VS Code
+.vscode/
+
+# Secret Config
+config/settings_local.py
+*.secret

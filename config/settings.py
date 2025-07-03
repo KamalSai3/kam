@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -84,12 +87,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'quizdb',              # your database name
         'USER': 'postgres',            # your PostgreSQL username
-        'PASSWORD': '123postgre',   # 🔐 fill in your actual password
+        'PASSWORD': os.getenv('123postgre'),   # 🔐 fill in your actual password
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
