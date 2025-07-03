@@ -85,9 +85,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('quizdb'),              # your database name
-        'USER': os.getenv('postgres'),            # your PostgreSQL username
-        'PASSWORD': os.getenv('123postgre'),   # 🔐 fill in your actual password
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),  # ✅ using env
         'HOST': 'localhost',
         'PORT': '5432',
     }
