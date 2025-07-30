@@ -1,46 +1,34 @@
 from rest_framework import serializers
-from .models import Quiz, Question, Option, Submission, Answer, User
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import User, Quiz, Question, Option, Submission, Answer
 
-class UserCreateSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'role')
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
-
-
+        fields = ['id', 'username', 'email', 'role']
 
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Option
-        fields = '__all__'
-
+        fields = ['id', 'option_text']
 
 class QuestionSerializer(serializers.ModelSerializer):
-    options = OptionSerializer(many=True, read_only=True)
+    options = OptionSerializer(many=True, required=False)
 
     class Meta:
         model = Question
-        fields = '__all__'
-
+        fields = ['id', 'quiz', 'question_text', 'question_type', 'correct_answer', 'options']
 
 class QuizSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Quiz
-        fields = '__all__'
-        read_only_fields = ['created_by', 'created_at']
-
+        fields = ['id', 'title', 'description', 'time_limit', 'created_by', 'created_at', 'questions']
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
-        fields = '__all__'
+        fields = ['id', 'submission', 'question', 'student_answer', 'marks_awarded']
 
 
 class SubmissionSerializer(serializers.ModelSerializer):
@@ -49,20 +37,4 @@ class SubmissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Submission
-        fields = '__all__'
-        read_only_fields = ['student', 'score', 'submitted_at', 'quiz']
-
-class UserListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'role']
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-
-        # Add custom claims
-        token['username'] = user.username
-        token['role'] = user.role
-        return token
+        fields = ['id', 'student', 'student_username', 'quiz', 'submitted_at', 'score', 'answers']
